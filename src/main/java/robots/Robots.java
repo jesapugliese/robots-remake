@@ -1,9 +1,9 @@
-package chase;
+package robots;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Chase extends Application {
+public class Robots extends Application {
     @Override
     public void start(Stage stage) {
 
