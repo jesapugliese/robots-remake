@@ -4,6 +4,3 @@
 
 * [Candela Matelica](https://github.com/candematelica) - 110641
 * [Jesabel Pugliese](https://github.com/jesapugliese) - 110860
-
-## Instrucciones de ejecución
----Poner si es necesario---
