@@ -39,7 +39,7 @@ public class Juego {
     }
 
     /**
-     * Perder vuelve al juego al estado inicial del juego
+     * Perder vuelve al estado inicial del juego
      */
     public void Perder(int totalFilas, int totalColumnas){
         jugador.ReiniciarEstado(totalFilas/2, totalColumnas/2);
