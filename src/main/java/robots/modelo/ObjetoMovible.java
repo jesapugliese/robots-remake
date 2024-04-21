@@ -44,22 +44,22 @@ public class ObjetoMovible {
     private void moverseDerecha(){ posFil += this.pasos; }
     private void moverseIzquierda(){ posFil -= this.pasos; }
 
-    private void moverseDiagonalSuperiorDerecha(){
+    private void moverseDiagonalSuperiorDerecha() {
         posFil += this.pasos;
         posCol -= this.pasos;
     }
 
-    private void moverseDiagonalSuperiorIzquierda(){
+    private void moverseDiagonalSuperiorIzquierda() {
         posFil -= this.pasos;
         posCol -= this.pasos;
     }
 
-    private void moverseDiagonalInferiorDerecha(){
+    private void moverseDiagonalInferiorDerecha() {
         posFil += this.pasos;
         posCol += this.pasos;
     }
 
-    private void moverseDiagonalInferiorIzquierda(){
+    private void moverseDiagonalInferiorIzquierda() {
         posFil -= this.pasos;
         posCol += this.pasos;
     }
@@ -68,7 +68,7 @@ public class ObjetoMovible {
      * moverse recibe dos parámetros enteros dirFil y dirCol, que corresponden
      * a las direcciones en las que moverse.
      */
-    public void moverse(int dirFil, int dirCol){
+    public void moverse(int dirFil, int dirCol) {
         if (dirFil < posFil) {
             if (dirCol < posCol){
                 moverseDiagonalSuperiorIzquierda();

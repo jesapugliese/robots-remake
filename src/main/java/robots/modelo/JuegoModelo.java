@@ -4,14 +4,14 @@ import robots.recursos.Ctes;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Juego {
+public class JuegoModelo {
     private Jugador jugador;
     private ArrayList<Robot> robots;
     private int nivelActual;
     private int totalFilas;
     private int totalColumnas;
 
-    public Juego(int totalFilas, int totalColumnas){
+    public JuegoModelo(int totalFilas, int totalColumnas) {
         this.jugador = new Jugador(totalFilas/2, totalColumnas/2);
         this.nivelActual = Ctes.NIVEL_INICAL;
         this.totalFilas = totalFilas;
@@ -19,11 +19,31 @@ public class Juego {
         inicializarRobots();
     }
 
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public ArrayList<Robot> getRobots() {
+        return robots;
+    }
+
+    public int getNivelActual() {
+        return nivelActual;
+    }
+
+    public int getTotalFilas() {
+        return totalFilas;
+    }
+
+    public int getTotalColumnas() {
+        return totalColumnas;
+    }
+
     /**
      * inicializarRobots inicializa un conjunto de robots según la dificultad dada por el nivelActual.
      * La cantidad de robots varía según el nivel y los robots pueden ser simples (de un paso) o dobles (de dos pasos).
      */
-    private void inicializarRobots(){
+    private void inicializarRobots() {
         Random random = new Random();
         robots = new ArrayList<>();
         int cantRobots = nivelActual*totalFilas; //ver, la idea seria asignar cada vez mas cantidad de robots por nivel
@@ -78,7 +98,7 @@ public class Juego {
     /**
      * ganarNivel pasa al jugador al siguiente nivel del juego
      */
-    public void ganarNivel(){
+    public void ganarNivel() {
         jugador.setPosFil(totalFilas/2);
         jugador.setPosCol(totalColumnas/2);
         jugador.incrementarUsosRestantesTPSegura();
@@ -89,7 +109,7 @@ public class Juego {
     /**
      * perder vuelve al juego al estado inicial del juego
      */
-    public void perder(int totalFilas, int totalColumnas){
+    public void perder(int totalFilas, int totalColumnas) {
         jugador.reiniciarEstado(totalFilas/2, totalColumnas/2);
         nivelActual = Ctes.NIVEL_INICAL;
         this.totalFilas = totalFilas;
@@ -101,7 +121,7 @@ public class Juego {
      * moverJugador mueve al jugador y a los robots en dirección a éste. Si el jugador colisionó con algún
      * robot, la función devuelve false. En caso contrario devuelve true.
      */
-    public boolean moverJugador(int dirFil, int dirCol){
+    public boolean moverJugador(int dirFil, int dirCol) {
         jugador.moverse(dirFil, dirCol);
         moverRobots();
         for (Robot robot : robots){
@@ -115,7 +135,7 @@ public class Juego {
     /**
      * moverRobots mueve los robots en dirección al jugador y si dos robots colisionan, los destruye.
      */
-    public void moverRobots(){ // esto se ejecuta tambien cuando se llama a esperar por robots.
+    public void moverRobots() { // esto se ejecuta tambien cuando se llama a esperar por robots.
         for (Robot robot1 : robots){
             robot1.moverse(jugador.getPosFil(), jugador.getPosCol());
             for (Robot robot2 : robots){

@@ -12,10 +12,18 @@ public class Jugador extends ObjetoMovible {
         this.usosRestantesTPSegura = Ctes.CANT_INICIAL_TPSEGURA;
     }
 
+    public int getUsosRestantesTPSegura() {
+        return usosRestantesTPSegura;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
     /**
      * tp teletransporta al jugador a la posicion de fila y columna pasados por parametro.
      */
-    public void tp(int posFil, int posCol){
+    public void tp(int posFil, int posCol) {
         super.setPosFil(posFil);
         super.setPosCol(posCol);
     }
@@ -45,7 +53,7 @@ public class Jugador extends ObjetoMovible {
      * reiniciarEstado recibe la posicion central de las grilla y la asigna al jugador y
      * establece el resto de valores del mismo en sus valores iniciales.
      */
-    public void reiniciarEstado(int posCentralFil, int posCentralCol){
+    public void reiniciarEstado(int posCentralFil, int posCentralCol) {
         super.setPosFil(posCentralFil);
         super.setPosCol(posCentralCol);
         this.puntaje = 0;
