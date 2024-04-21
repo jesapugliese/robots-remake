@@ -65,10 +65,10 @@ public class ObjetoMovible {
     }
 
     /**
-     * Moverse() recibe dos parámetros enteros dirFil y dirCol, que corresponden
+     * moverse recibe dos parámetros enteros dirFil y dirCol, que corresponden
      * a las direcciones en las que moverse.
      */
-    public void Moverse(int dirFil, int dirCol){
+    public void moverse(int dirFil, int dirCol){
         if (dirFil < posFil) {
             if (dirCol < posCol){
                 moverseDiagonalSuperiorIzquierda();

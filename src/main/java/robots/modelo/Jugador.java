@@ -1,5 +1,7 @@
 package robots.modelo;
 
+import robots.recursos.Ctes;
+
 public class Jugador extends ObjetoMovible {
     private int usosRestantesTPSegura;
     private int puntaje;
@@ -11,9 +13,9 @@ public class Jugador extends ObjetoMovible {
     }
 
     /**
-     * Teletransporta al jugador a la posicion de fila y columna pasados por parametro.
+     * tp teletransporta al jugador a la posicion de fila y columna pasados por parametro.
      */
-    public void TP(int posFil, int posCol, boolean esTPSegura){ //no se si implementar asi lo de esTPSegura o.o
+    public void tp(int posFil, int posCol, boolean esTPSegura){ //no se si implementar asi lo de esTPSegura o.o
         if (esTPSegura){
             usosRestantesTPSegura--;
         }
@@ -22,24 +24,24 @@ public class Jugador extends ObjetoMovible {
     }
 
     /**
-     * Incrementa el puntaje del jugador en base a la cantidad de puntos ganados.
+     * aumentarPuntaje incrementa el puntaje del jugador en base a la cantidad de puntos ganados.
      */
-    public void AumentarPuntaje(int puntos){
+    public void aumentarPuntaje(int puntos){
         this.puntaje += puntos;
     }
 
     /**
-     * Incrementa en uno la cantidad de usos restantes de la teletransportacion segura
+     * incrementarUsosRestantesTPSegura incrementa en uno la cantidad de usos restantes de la teletransportacion segura
      */
-    public void IncrementarUsosRestantesTPSegura(){
+    public void incrementarUsosRestantesTPSegura(){
         this.usosRestantesTPSegura += 1;
     }
 
     /**
-     * Recibe la posicion central de las grilla y la asigna al jugador y
+     * reiniciarEstado recibe la posicion central de las grilla y la asigna al jugador y
      * establece el resto de valores del mismo en sus valores iniciales.
      */
-    public void ReiniciarEstado(int posCentralFil, int posCentralCol){
+    public void reiniciarEstado(int posCentralFil, int posCentralCol){
         super.setPosFil(posCentralFil);
         super.setPosCol(posCentralCol);
         this.puntaje = 0;
