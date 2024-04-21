@@ -1,6 +1,8 @@
 package robots.modelo;
 
+import robots.recursos.Ctes;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Juego {
     private Jugador jugador;
@@ -23,26 +25,57 @@ public class Juego {
      */
     private void inicializarRobots(){
         robots = new ArrayList<Robot>();
-        // Aca generar una cantidad de robots que dependa del nivelActual (dificultad) y
-        // del tamaño de la grilla. Asignar ids distintos a cada uno.
+        Random random = new Random();
+        robots = new ArrayList<>();
+        int cantRobots = nivelActual*totalFilas; //ver, la idea seria asignar cada vez mas cantidad de robots por nivel
+
+        for (int i = 0; i < cantRobots; i++) {
+            int posFil = random.nextInt();
+            int posCol = random.nextInt();
+            while (noEsPosRobotValida(posFil, posCol)) {
+                posFil = random.nextInt();
+                posCol = random.nextInt();
+            }
+
+            Robot nuevoRobot;
+            if (i > cantRobots/2) {
+                nuevoRobot = new Robot(posFil, posCol, Ctes.PASO_DOBLE, Ctes.PUNTAJE_ROBOT_DOBLE, i);
+            } else {
+                nuevoRobot = new Robot(posFil, posCol, Ctes.PASO_SIMPLE, Ctes.PUNTAJE_ROBOT_SIMPLE, i);
+            }
+            robots.add(nuevoRobot);
+        }
     }
 
     /**
-     * GanarNivel pasa al jugador al siguiente nivel del juego
+     * noEsPosRobotValida devuelve true si la posicion del robot a agregar pasada por paremetro
+     * colisiona con la posicion de otros robots o del jugador. En caso contrario devuelve false.
      */
-    public void GanarNivel(){
+    private boolean noEsPosRobotValida(int posFil, int posCol) {
+        for (Robot robot : robots) {
+            if (robot.getPosFil() == posFil && robot.getPosCol() == posCol) {
+                return true;
+            }
+        }
+        return (posFil == jugador.getPosFil() && posCol == jugador.getPosCol());
+    }
+
+    /**
+     * ganarNivel pasa al jugador al siguiente nivel del juego
+     */
+    public void ganarNivel(){
         jugador.setPosFil(totalFilas/2);
         jugador.setPosCol(totalColumnas/2);
-        jugador.IncrementarUsosRestantesTPSegura();
+        jugador.incrementarUsosRestantesTPSegura();
         nivelActual++;
         inicializarRobots();
     }
 
     /**
-     * Perder vuelve al juego al estado inicial del juego
+     * perder vuelve al juego al estado inicial del juego
      */
-    public void Perder(int totalFilas, int totalColumnas){
-        jugador.ReiniciarEstado(totalFilas/2, totalColumnas/2);
+    public void perder(int totalFilas, int totalColumnas){
+        jugador.reiniciarEstado(totalFilas/2, totalColumnas/2);
         nivelActual = Ctes.NIVEL_INICAL;
         this.totalFilas = totalFilas;
         this.totalColumnas = totalColumnas;
@@ -50,12 +83,12 @@ public class Juego {
     }
 
     /**
-     * MoverJugador mueve al jugador y a los robots en dirección a éste. Si el jugador colisionó con algún
+     * moverJugador mueve al jugador y a los robots en dirección a éste. Si el jugador colisionó con algún
      * robot, la función devuelve false. En caso contrario devuelve true.
      */
-    public boolean MoverJugador(int dirFil, int dirCol){
-        jugador.Moverse(dirFil, dirCol);
-        MoverRobots();
+    public boolean moverJugador(int dirFil, int dirCol){
+        jugador.moverse(dirFil, dirCol);
+        moverRobots();
         for (Robot robot : robots){
             if (jugador.getPosFil() == robot.getPosFil() && jugador.getPosCol() == robot.getPosCol()){
                 return false;
@@ -65,26 +98,26 @@ public class Juego {
     }
 
     /**
-     * MoverRobots mueve los robots en dirección al jugador y si dos robots colisionan, los destruye.
+     * moverRobots mueve los robots en dirección al jugador y si dos robots colisionan, los destruye.
      */
-    public void MoverRobots(){ // esto se ejecuta tambien cuando se llama a esperar por robots.
+    public void moverRobots(){ // esto se ejecuta tambien cuando se llama a esperar por robots.
         for (Robot robot1 : robots){
-            robot1.Moverse(jugador.getPosFil(), jugador.getPosCol());
+            robot1.moverse(jugador.getPosFil(), jugador.getPosCol());
             for (Robot robot2 : robots){
                 if (robot1.getId() == robot2.getId() || robot1.isDestruido() && robot2.isDestruido()){
                     continue;
                 }
                 if (robot1.getPosFil() == robot2.getPosFil() && robot1.getPosCol() == robot2.getPosCol()){
                     if (robot1.isDestruido()) {
-                        jugador.AumentarPuntaje(robot2.getPuntaje());
-                        robot2.Destruir();
+                        jugador.aumentarPuntaje(robot2.getPuntaje());
+                        robot2.destruir();
                     } else if (robot2.isDestruido()){
-                        jugador.AumentarPuntaje(robot1.getPuntaje());
-                        robot1.Destruir();
+                        jugador.aumentarPuntaje(robot1.getPuntaje());
+                        robot1.destruir();
                     } else {
-                        jugador.AumentarPuntaje(robot1.getPuntaje()+robot2.getPuntaje());
-                        robot1.Destruir();
-                        robot2.Destruir();
+                        jugador.aumentarPuntaje(robot1.getPuntaje()+robot2.getPuntaje());
+                        robot1.destruir();
+                        robot2.destruir();
                     }
                 }
             }
