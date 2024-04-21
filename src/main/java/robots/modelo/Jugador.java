@@ -15,10 +15,7 @@ public class Jugador extends ObjetoMovible {
     /**
      * tp teletransporta al jugador a la posicion de fila y columna pasados por parametro.
      */
-    public void tp(int posFil, int posCol, boolean esTPSegura){ //no se si implementar asi lo de esTPSegura o.o
-        if (esTPSegura){
-            usosRestantesTPSegura--;
-        }
+    public void tp(int posFil, int posCol){
         super.setPosFil(posFil);
         super.setPosCol(posCol);
     }
@@ -34,7 +31,14 @@ public class Jugador extends ObjetoMovible {
      * incrementarUsosRestantesTPSegura incrementa en uno la cantidad de usos restantes de la teletransportacion segura
      */
     public void incrementarUsosRestantesTPSegura(){
-        this.usosRestantesTPSegura += 1;
+        this.usosRestantesTPSegura++;
+    }
+
+    /**
+     * decrementarUsosRestantesTPSegura decrementa en uno la cantidad de usos restantes de la teletransportacion segura
+     */
+    public void decrementarUsosRestantesTPSegura(){
+        this.usosRestantesTPSegura--;
     }
 
     /**

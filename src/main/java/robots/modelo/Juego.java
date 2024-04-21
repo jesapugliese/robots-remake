@@ -24,7 +24,6 @@ public class Juego {
      * La cantidad de robots varía según el nivel y los robots pueden ser simples (de un paso) o dobles (de dos pasos).
      */
     private void inicializarRobots(){
-        robots = new ArrayList<Robot>();
         Random random = new Random();
         robots = new ArrayList<>();
         int cantRobots = nivelActual*totalFilas; //ver, la idea seria asignar cada vez mas cantidad de robots por nivel
@@ -32,7 +31,7 @@ public class Juego {
         for (int i = 0; i < cantRobots; i++) {
             int posFil = random.nextInt();
             int posCol = random.nextInt();
-            while (noEsPosRobotValida(posFil, posCol)) {
+            while (noEsPosValida(posFil, posCol)) {
                 posFil = random.nextInt();
                 posCol = random.nextInt();
             }
@@ -48,16 +47,32 @@ public class Juego {
     }
 
     /**
-     * noEsPosRobotValida devuelve true si la posicion del robot a agregar pasada por paremetro
-     * colisiona con la posicion de otros robots o del jugador. En caso contrario devuelve false.
+     * noEsPosValida devuelve true si la posicion pasada por paremetro colisiona con la
+     * posicion de otros robots o del jugador. En caso contrario devuelve false.
      */
-    private boolean noEsPosRobotValida(int posFil, int posCol) {
+    private boolean noEsPosValida(int posFil, int posCol) {
         for (Robot robot : robots) {
             if (robot.getPosFil() == posFil && robot.getPosCol() == posCol) {
                 return true;
             }
         }
         return (posFil == jugador.getPosFil() && posCol == jugador.getPosCol());
+    }
+
+    public void tpJugador(boolean esTPSegura) {
+        Random random = new Random();
+        int posFil = random.nextInt();
+        int posCol = random.nextInt();
+
+        if (esTPSegura) {
+            jugador.decrementarUsosRestantesTPSegura();
+            while (noEsPosValida(posFil, posCol)) {
+                posFil = random.nextInt();
+                posCol = random.nextInt();
+            }
+        }
+
+        jugador.tp(posFil, posCol);
     }
 
     /**
@@ -123,4 +138,6 @@ public class Juego {
             }
         }
     }
+
+
 }
