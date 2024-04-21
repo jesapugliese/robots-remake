@@ -79,6 +79,11 @@ public class JuegoModelo {
         return (posFil == jugador.getPosFil() && posCol == jugador.getPosCol());
     }
 
+    /**
+     * tpJugador llama al jugador para que se teletransporte a una posicion aleatoria. Esta es una posicion
+     * segura (no colisiona con robots) si tpJugador recibe el parametro true. Sino solo lo teletransporta
+     * aleatoriamente.
+     */
     public void tpJugador(boolean esTPSegura) {
         Random random = new Random();
         int posFil = random.nextInt();

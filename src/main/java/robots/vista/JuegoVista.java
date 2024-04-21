@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import robots.modelo.JuegoModelo;
+import robots.recursos.Ctes;
 
 public class JuegoVista {
     private final JuegoModelo juegoModelo;
@@ -17,9 +18,9 @@ public class JuegoVista {
         //var grilla = ???
         var grilla = new Label("aca va la grilla");
 
-        var botonTPAleatoria = new Button("Teletransporte Aleatorio");
-        var botonTPSegura = new Button("Teletransporte Seguro\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
-        var botonEsperarPorRobots = new Button("Esperar por Robots");
+        var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
+        var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
+        var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
         var botonesHbox = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
 
         var vbox = new VBox(labelInfoJuego, grilla, botonesHbox);
