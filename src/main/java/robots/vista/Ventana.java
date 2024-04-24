@@ -14,8 +14,7 @@ public class Ventana {
 
     public Ventana(JuegoModelo juegoModelo) {
         var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
-        var menuConf = new MenuBar(new Menu("Configuración"));
-        var hboxSuperior = new HBox(labelInfoJuego, menuConf);
+        var hboxSuperior = new HBox(labelInfoJuego);
 
         var grilla = new Grilla(juegoModelo.getTotalFilas(), juegoModelo.getTotalColumnas());
 
