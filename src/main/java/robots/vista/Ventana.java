@@ -1,5 +1,6 @@
 package robots.vista;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -17,13 +18,15 @@ public class Ventana {
         var hboxSuperior = new HBox(labelInfoJuego);
 
         var grilla = new Grilla(juegoModelo.getTotalFilas(), juegoModelo.getTotalColumnas());
+        var hboxGrilla = new HBox(grilla.getGrilla());
+        hboxGrilla.setAlignment(Pos.CENTER); // Center the grid within the HBox
 
         var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
         var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
         var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
         var hboxInferior = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
 
-        this.vista = new VBox(hboxSuperior, grilla.getGrilla(), hboxInferior);
+        this.vista = new VBox(hboxSuperior, hboxInferior);
     }
 
     public VBox getVista() {
