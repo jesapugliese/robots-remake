@@ -14,16 +14,12 @@ public class Grilla {
 
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                Celda celda;
-                if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0)) {
-                    celda = new Celda(i, j, Ctes.IMG_CELDA_CLARA);
-                } else {
-                    celda = new Celda(i, j, Ctes.IMG_CELDA_OSCURA);
-                }
-
+                var celda = new Celda(i, j, Ctes.IMG_CELDA_CLARA);
                 grilla.add(celda.getVista(), j, i);
             }
         }
+
+        grilla.setGridLinesVisible(true);
 
         this.grilla = grilla;
     }

@@ -1,5 +1,6 @@
 package robots.vista;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -10,11 +11,12 @@ import robots.modelo.JuegoModelo;
 import robots.recursos.Ctes;
 
 public class Ventana {
-    private VBox vista;
+    private final VBox vista;
 
     public Ventana(JuegoModelo juegoModelo) {
         var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
         var hboxSuperior = new HBox(labelInfoJuego);
+        hboxSuperior.setAlignment(Pos.CENTER);
 
         var grilla = new Grilla(juegoModelo.getTotalFilas(), juegoModelo.getTotalColumnas());
 
@@ -23,7 +25,13 @@ public class Ventana {
         var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
         var hboxInferior = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
 
-        this.vista = new VBox(hboxSuperior, grilla.getGrilla(), hboxInferior);
+        var vbox = new VBox(hboxSuperior, grilla.getGrilla(), hboxInferior);
+
+        hboxSuperior.setAlignment(Pos.CENTER);
+        hboxInferior.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.CENTER);
+
+        this.vista = vbox;
     }
 
     public VBox getVista() {

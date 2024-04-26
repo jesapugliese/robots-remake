@@ -3,6 +3,7 @@ package robots.vista;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import robots.vista.eventos.CeldaPresionadaEventHandler;
+import java.util.Objects;
 
 public class Celda {
     private final int posFil;
@@ -13,7 +14,7 @@ public class Celda {
         this.posFil = posFil;
         this.posCol = posCol;
 
-        Image imgCelda = new Image(getClass().getResourceAsStream(rutaImgCelda));
+        Image imgCelda = new Image(Objects.requireNonNull(getClass().getResourceAsStream(rutaImgCelda)));
         var imageViewCelda = new ImageView(imgCelda);
         imageViewCelda.setFitHeight(20);
         imageViewCelda.setFitWidth(20);
