@@ -3,8 +3,6 @@ package robots.vista;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import robots.modelo.JuegoModelo;
@@ -18,7 +16,7 @@ public class Ventana {
         var hboxSuperior = new HBox(labelInfoJuego);
         hboxSuperior.setAlignment(Pos.CENTER);
 
-        var grilla = new Grilla(juegoModelo.getTotalFilas(), juegoModelo.getTotalColumnas());
+        var grilla = new Grilla(juegoModelo);
 
         var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
         var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));

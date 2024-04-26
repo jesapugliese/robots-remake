@@ -23,15 +23,13 @@ public class ObjetoMovible {
         return posCol;
     }
 
-    public void setPasos(int pasos) {
-        this.pasos = pasos;
-    }
+    void setPasos(int pasos) { this.pasos = pasos; }
 
-    public void setPosFil(int posFil) {
+    void setPosFil(int posFil) {
         this.posFil = posFil;
     }
 
-    public void setPosCol(int posCol) {
+    void setPosCol(int posCol) {
         this.posCol = posCol;
     }
 
@@ -39,58 +37,44 @@ public class ObjetoMovible {
      * Declaración de los métodos privados que utilizará el método público moverse(),
      * hay uno contemplado por cada movimiento posible.
      */
-    private void moverseAbajo(){ posCol += this.pasos; }
-    private void moverseArriba(){ posCol -= this.pasos; }
-    private void moverseDerecha(){ posFil += this.pasos; }
-    private void moverseIzquierda(){ posFil -= this.pasos; }
-
-    private void moverseDiagonalSuperiorDerecha() {
-        posFil += this.pasos;
-        posCol -= this.pasos;
-    }
-
-    private void moverseDiagonalSuperiorIzquierda() {
-        posFil -= this.pasos;
-        posCol -= this.pasos;
-    }
-
-    private void moverseDiagonalInferiorDerecha() {
-        posFil += this.pasos;
-        posCol += this.pasos;
-    }
-
-    private void moverseDiagonalInferiorIzquierda() {
-        posFil -= this.pasos;
-        posCol += this.pasos;
-    }
+    private int[] moverseAbajo(){ return new int[]{posFil, posCol + pasos}; }
+    private int[] moverseArriba(){ return new int[]{posFil, posCol - pasos}; }
+    private int[] moverseDerecha(){ return new int[]{posFil + pasos, posCol}; }
+    private int[] moverseIzquierda(){ return new int[]{posFil - pasos, posCol}; }
+    private int[] moverseDiagonalSuperiorDerecha() { return new int[]{posFil + pasos, posCol - pasos}; }
+    private int[] moverseDiagonalSuperiorIzquierda() { return new int[]{posFil - pasos, posCol - pasos}; }
+    private int[] moverseDiagonalInferiorDerecha() { return new int[]{posFil + pasos, posCol + pasos}; }
+    private int[] moverseDiagonalInferiorIzquierda() { return new int[]{posFil - pasos, posCol + pasos}; }
 
     /**
      * moverse recibe dos parámetros enteros dirFil y dirCol, que corresponden
      * a las direcciones en las que moverse.
      */
-    public void moverse(int dirFil, int dirCol) {
+    public int[] moverse(int dirFil, int dirCol) {
         if (dirFil < posFil) {
             if (dirCol < posCol){
-                moverseDiagonalSuperiorIzquierda();
+                return moverseDiagonalSuperiorIzquierda();
             } else if (dirCol > posCol) {
-                moverseDiagonalSuperiorDerecha();
+                return moverseDiagonalSuperiorDerecha();
             } else {
-                moverseArriba();
+                return moverseArriba();
             }
         } else if (dirFil > posFil) {
             if (dirCol < posCol){
-                moverseDiagonalInferiorIzquierda();
+                return moverseDiagonalInferiorIzquierda();
             } else if (dirCol > posCol) {
-                moverseDiagonalInferiorDerecha();
+                return moverseDiagonalInferiorDerecha();
             } else {
-                moverseAbajo();
+                return moverseAbajo();
             }
         } else {
             if (dirCol < posCol){
-                moverseIzquierda();
+                return moverseIzquierda();
             } else if (dirCol > posCol) {
-                moverseDerecha();
+                return moverseDerecha();
             }
         }
+
+        return null;
     }
 }

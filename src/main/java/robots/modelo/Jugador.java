@@ -5,11 +5,13 @@ import robots.recursos.Ctes;
 public class Jugador extends ObjetoMovible {
     private int usosRestantesTPSegura;
     private int puntaje;
+    private boolean perdedor;
 
     public Jugador(int posFil, int posCol) {
         super(Ctes.PASO_SIMPLE, posFil, posCol);
         this.puntaje = 0;
         this.usosRestantesTPSegura = Ctes.CANT_INICIAL_TPSEGURA;
+        this.perdedor = false;
     }
 
     public int getUsosRestantesTPSegura() {
@@ -20,10 +22,14 @@ public class Jugador extends ObjetoMovible {
         return puntaje;
     }
 
+    public boolean isPerdedor() { return perdedor; }
+
+    public void perder() { perdedor = true; }
+
     /**
      * tp teletransporta al jugador a la posicion de fila y columna pasados por parametro.
      */
-    public void tp(int posFil, int posCol) {
+    public void actualizarPosicion(int posFil, int posCol) {
         super.setPosFil(posFil);
         super.setPosCol(posCol);
     }
@@ -47,16 +53,5 @@ public class Jugador extends ObjetoMovible {
      */
     public void decrementarUsosRestantesTPSegura(){
         this.usosRestantesTPSegura--;
-    }
-
-    /**
-     * reiniciarEstado recibe la posicion central de las grilla y la asigna al jugador y
-     * establece el resto de valores del mismo en sus valores iniciales.
-     */
-    public void reiniciarEstado(int posCentralFil, int posCentralCol) {
-        super.setPosFil(posCentralFil);
-        super.setPosCol(posCentralCol);
-        this.puntaje = 0;
-        this.usosRestantesTPSegura = Ctes.CANT_INICIAL_TPSEGURA;
     }
 }

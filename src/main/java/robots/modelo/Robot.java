@@ -34,4 +34,9 @@ public class Robot extends ObjetoMovible {
         puntaje = 0;
         destruido = true;
     }
+
+    public void actualizarPosicion(int posFil, int posCol) {
+        super.setPosFil(posFil);
+        super.setPosCol(posCol);
+    }
 }
