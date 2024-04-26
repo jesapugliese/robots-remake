@@ -39,7 +39,7 @@ public class CeldaPresionadaEventHandler implements EventHandler<MouseEvent> {
                     System.out.println("El usuario eligió continuar jugando.");
 
                     //preguntar filas columnas
-                    juegoModelo = new JuegoModelo(filas, columnas);
+                    //juegoModelo = new JuegoModelo(filas, columnas);
 
                 } else {
                     System.out.println("El usuario eligió salir del juego.");
