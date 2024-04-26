@@ -14,6 +14,5 @@ public class Ctes {
     public static final String TITULO_BOTON_TP_SEGURA = "Teletransporte Seguro";
     public static final String TITULO_BOTON_ESPERAR_ROBOTS = "Esperar por Robots";
 
-    public static final String IMG_CELDA_CLARA = "/imagenes/celda1.png";
-    public static final String IMG_CELDA_OSCURA = "/imagenes/celda2.png";
+    public static final String IMG_CELDA = "/imagenes/celda.png";
 }

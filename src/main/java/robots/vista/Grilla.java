@@ -14,7 +14,7 @@ public class Grilla {
 
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                var celda = new Celda(i, j, Ctes.IMG_CELDA_CLARA);
+                var celda = new Celda(i, j, Ctes.IMG_CELDA);
                 grilla.add(celda.getVista(), j, i);
             }
         }
