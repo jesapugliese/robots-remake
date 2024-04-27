@@ -20,7 +20,7 @@ public class Robots extends Application {
 }
 
 /*
--poner los setOnAction de los botones, porque todavia no hacen nada
+-poner los setOnAction de los botones, porque todavia no hacen nada (falta chequear si funcionan los 2 hechos)
 -settear la cantidad de robots segun la dificultad, tenemos que ver eso de la proporcion
 -poner los comentarios a las funciones
 -pasar lo que tengamos que pasar a constantes
