@@ -14,4 +14,10 @@ public class BotonEsperarRobotsPresionadoEventHandler implements EventHandler<Ac
         this.juegoVista = juegoVista;
     }
 
+    @Override
+    public void handle(ActionEvent ActionEvent){
+        var juegoModelo = grilla.getJuegoModelo();
+        juegoModelo.moverJugador(juegoModelo.getJugador().getPosFil(), juegoModelo.getJugador().getPosCol());
+    }
+
 }
