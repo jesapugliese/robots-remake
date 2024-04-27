@@ -19,7 +19,7 @@ public class BotonTPAleatoriaPresionadoEventHandler implements EventHandler<Acti
         var juegoModelo = grilla.getJuegoModelo();
         juegoModelo.tpJugador(false);
         grilla.actualizarGrilla();
-        juegoVista.actualizarEtiquetas();
+        juegoVista.actualizarEtiquetas(grilla);
 
     }
 }

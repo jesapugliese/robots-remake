@@ -171,4 +171,18 @@ public class JuegoModelo {
             robots.remove((robotAEliminar));
         }
     }
+
+    /**devuelve el estado en el que se encuentra el juego para ser utilizado en la ventana y elegir que ventana/alerta figura
+     * o si continuara actualizando la grilla
+     */
+    public String Estado(){
+        if (this.jugador.isPerdedor()){
+            return "perdió";
+        } else if (this.jugador.isGanador()){
+            return "ganó";
+        } else {
+            return "sigue en juego";
+        }
+    }
 }
+
