@@ -18,8 +18,11 @@ public class BotonTPSeguraPresionadoEventHandler implements EventHandler<ActionE
     public void handle(ActionEvent ActionEvent){
         var juegoModelo = grilla.getJuegoModelo();
         juegoModelo.tpJugador(true);
-        grilla.actualizarGrilla();
-        juegoVista.actualizarEtiquetas(this.grilla);
-
+        var cant_restantes = juegoModelo.getJugador().getUsosRestantesTPSegura();
+        if (cant_restantes >= 1){
+            grilla.actualizarGrilla();
+            juegoVista.actualizarEtiquetas(this.grilla);
+            juegoModelo.getJugador().decrementarUsosRestantesTPSegura();
+        }
     }
 }
