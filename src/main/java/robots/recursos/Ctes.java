@@ -26,5 +26,9 @@ public class Ctes {
     public static final String IMG_ROBOT_DOBLE = "/imagenes/robot_mov_doble.gif";
     public static final String IMG_JUGADOR = "/imagenes/jugador.gif";
     public static final String IMG_JUGADOR_PERDEDOR = "/imagenes/jugador_pierde.png";
-    public static  final double AMPLIADOR_ROBOTS_POR_NIVEL = "1.5"
+    public static  final double AMPLIADOR_ROBOTS_POR_NIVEL = 1.5;
+    public static final String FIN_NIVEL = "perdió";
+    public static final String SIGUIENTE_NIVEL = "ganó";
+    public static final String CONTINUA_EL_JUEGO = "sigue en el juego";
+
 }

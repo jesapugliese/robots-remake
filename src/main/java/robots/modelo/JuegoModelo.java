@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static robots.recursos.Ctes.*;
+
 public class JuegoModelo {
     private final Jugador jugador;
     private List<Robot> robots;
@@ -177,11 +179,11 @@ public class JuegoModelo {
      */
     public String Estado(){
         if (this.jugador.isPerdedor()){
-            return "perdió";
+            return FIN_NIVEL;
         } else if (this.jugador.isGanador()){
-            return "ganó";
+            return SIGUIENTE_NIVEL;
         } else {
-            return "sigue en juego";
+            return CONTINUA_EL_JUEGO;
         }
     }
 }
