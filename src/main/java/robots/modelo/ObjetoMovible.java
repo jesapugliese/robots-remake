@@ -37,44 +37,54 @@ public class ObjetoMovible {
      * Declaración de los métodos privados que utilizará el método público moverse(),
      * hay uno contemplado por cada movimiento posible.
      */
-    private int[] moverseAbajo(){ return new int[]{posFil, posCol + pasos}; }
-    private int[] moverseArriba(){ return new int[]{posFil, posCol - pasos}; }
-    private int[] moverseDerecha(){ return new int[]{posFil + pasos, posCol}; }
-    private int[] moverseIzquierda(){ return new int[]{posFil - pasos, posCol}; }
-    private int[] moverseDiagonalSuperiorDerecha() { return new int[]{posFil + pasos, posCol - pasos}; }
-    private int[] moverseDiagonalSuperiorIzquierda() { return new int[]{posFil - pasos, posCol - pasos}; }
-    private int[] moverseDiagonalInferiorDerecha() { return new int[]{posFil + pasos, posCol + pasos}; }
-    private int[] moverseDiagonalInferiorIzquierda() { return new int[]{posFil - pasos, posCol + pasos}; }
+    private void moverseAbajo() { posFil += pasos; }
+    private void moverseArriba() { posFil -= pasos; }
+    private void moverseDerecha() { posCol += pasos; }
+    private void moverseIzquierda() { posCol -= pasos; }
+    private void moverseDiagonalSuperiorDerecha() {
+        posFil -= pasos;
+        posCol += pasos;
+    }
+    private void moverseDiagonalSuperiorIzquierda() {
+        posFil -= pasos;
+        posCol -= pasos;
+    }
+    private void moverseDiagonalInferiorDerecha() {
+        posFil += pasos;
+        posCol += pasos;
+    }
+    private void moverseDiagonalInferiorIzquierda() {
+        posFil += pasos;
+        posCol -= pasos;
+    }
 
     /**
      * moverse recibe dos parámetros enteros dirFil y dirCol, que corresponden
      * a las direcciones en las que moverse.
      */
-    public int[] moverse(int dirFil, int dirCol) {
+    public void moverse(int dirFil, int dirCol) {
         if (dirFil < posFil) {
             if (dirCol < posCol){
-                return moverseDiagonalSuperiorIzquierda();
+                moverseDiagonalSuperiorIzquierda();
             } else if (dirCol > posCol) {
-                return moverseDiagonalSuperiorDerecha();
+                moverseDiagonalSuperiorDerecha();
             } else {
-                return moverseArriba();
+                moverseArriba();
             }
         } else if (dirFil > posFil) {
             if (dirCol < posCol){
-                return moverseDiagonalInferiorIzquierda();
+                moverseDiagonalInferiorIzquierda();
             } else if (dirCol > posCol) {
-                return moverseDiagonalInferiorDerecha();
+                moverseDiagonalInferiorDerecha();
             } else {
-                return moverseAbajo();
+                moverseAbajo();
             }
         } else {
             if (dirCol < posCol){
-                return moverseIzquierda();
+                moverseIzquierda();
             } else if (dirCol > posCol) {
-                return moverseDerecha();
+                moverseDerecha();
             }
         }
-
-        return null;
     }
 }
