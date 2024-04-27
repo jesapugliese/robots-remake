@@ -24,4 +24,7 @@ public class Robots extends Application {
 -settear la cantidad de robots segun la dificultad, tenemos que ver eso de la proporcion
 -poner los comentarios a las funciones
 -pasar lo que tengamos que pasar a constantes
+-eventos teclado
+-completar la espera de robots
+-corregir cuando pierde o no el juego
  */

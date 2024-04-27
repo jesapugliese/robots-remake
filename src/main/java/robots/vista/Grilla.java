@@ -28,7 +28,7 @@ public class Grilla {
         this.grilla = new GridPane();
         inicializarGrilla();
         actualizarGrilla();
-        juegoVista.actualizarEtiquetas();
+        juegoVista.actualizarEtiquetas(this);
     }
 
     public GridPane getGrilla() {

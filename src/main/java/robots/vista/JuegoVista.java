@@ -67,7 +67,7 @@ public class JuegoVista {
         stage.show();
     }
 /*** Actualiza las etiquetas de la vista***/
-    public void actualizarEtiquetas() {
+    public void actualizarEtiquetas(Grilla grilla) {
         if (vista != null) {
             var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
             vista.getChildren().removeFirst();
@@ -89,9 +89,9 @@ public class JuegoVista {
             var hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
             hboxBotones.setAlignment(Pos.CENTER);
             // asigno handler a los eventos
-            botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler(grilla, this);
-            botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler(grilla, this);
-            botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler(grilla, this);
+            botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler(grilla, this));
+            botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler(grilla, this));
+            botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler(grilla, this));
 
             vista.getChildren().removeLast();
             vista.getChildren().addLast(hboxBotones);

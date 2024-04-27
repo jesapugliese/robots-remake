@@ -25,7 +25,7 @@ public class CeldaPresionadaEventHandler implements EventHandler<MouseEvent> {
         var juegoModelo = grilla.getJuegoModelo();
         juegoModelo.moverJugador(posFil, posCol);
         grilla.actualizarGrilla();
-        juegoVista.actualizarEtiquetas();
+        juegoVista.actualizarEtiquetas(this.grilla);
 
         if (juegoModelo.getJugador().isPerdedor()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -37,7 +37,7 @@ public class CeldaPresionadaEventHandler implements EventHandler<MouseEvent> {
                     var confFilCol = new ConfiguracionFilasColumnas(juegoModelo.getTotalFilas(), juegoModelo.getTotalColumnas());
                     confFilCol.preguntarConfFilasColumnas();
                     grilla.reiniciarJuego(confFilCol.getTotalFilasActual(), confFilCol.getTotalColumnasActual());
-                    juegoVista.actualizarEtiquetas();
+                    juegoVista.actualizarEtiquetas(this.grilla);
                 } else {
                     System.exit(0);
                 }
@@ -46,7 +46,7 @@ public class CeldaPresionadaEventHandler implements EventHandler<MouseEvent> {
         if (juegoModelo.getJugador().isGanador()) {
             juegoModelo.ganarNivel();
             grilla.actualizarGrilla();
-            juegoVista.actualizarEtiquetas();
+            juegoVista.actualizarEtiquetas(this.grilla);
         }
     }
 }

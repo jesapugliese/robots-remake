@@ -19,7 +19,7 @@ public class BotonTPSeguraPresionadoEventHandler implements EventHandler<ActionE
         var juegoModelo = grilla.getJuegoModelo();
         juegoModelo.tpJugador(true);
         grilla.actualizarGrilla();
-        juegoVista.actualizarEtiquetas();
+        juegoVista.actualizarEtiquetas(this.grilla);
 
     }
 }
