@@ -2,11 +2,10 @@ package robots.vista.eventos;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import robots.vista.Grilla;
 import robots.vista.JuegoVista;
 
-public class BotonTPSeguraPresionado implements EventHandler<ActionEvent> {
+public class BotonTPSeguraPresionadoEventHandler implements EventHandler<ActionEvent> {
     private final Grilla grilla;
     private final JuegoVista juegoVista;
 
@@ -15,7 +14,7 @@ public class BotonTPSeguraPresionado implements EventHandler<ActionEvent> {
         this.grilla = grilla;
         this.juegoVista = juegoVista;
     }
-
+    @Override
     public void handle(ActionEvent ActionEvent){
         var juegoModelo = grilla.getJuegoModelo();
         juegoModelo.tpJugador(true);

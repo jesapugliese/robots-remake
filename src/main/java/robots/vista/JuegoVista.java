@@ -1,17 +1,20 @@
 package robots.vista;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import robots.modelo.JuegoModelo;
 import robots.recursos.Ctes;
+import robots.vista.eventos.BotonEsperarRobotsPresionadoEventHandler;
+import robots.vista.eventos.BotonTPAleatoriaPresionadoEventHandler;
+import robots.vista.eventos.BotonTPSeguraPresionadoEventHandler;
 
 public class JuegoVista {
     private final JuegoModelo juegoModelo;
@@ -19,6 +22,7 @@ public class JuegoVista {
     private final Stage stage;
 /*** Constructor de la ventana en la que se muestra el juego ***/
     public JuegoVista(JuegoModelo juegoModelo, Stage stage) {
+        
         this.juegoModelo = juegoModelo;
         var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
 
@@ -42,7 +46,11 @@ public class JuegoVista {
         HBox hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
         hboxBotones.setAlignment(Pos.CENTER);
 
+        BotonEsperarRobotsPresionadoEventHandler EsperarRobots =
 
+        botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler()(grilla, juegoVista));
+        botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler()(grilla, juegoVista));
+        botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler()(grilla, juegoVista));
 
 
         var vboxVentana = new VBox(labelInfoJuego, grilla.getGrilla(), hboxBotones);
@@ -50,6 +58,8 @@ public class JuegoVista {
 
         this.vista = vboxVentana;
         this.stage = stage;
+
+
     }
 
     public void iniciar() {
