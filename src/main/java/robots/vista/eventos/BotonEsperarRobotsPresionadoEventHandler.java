@@ -9,8 +9,9 @@ public class BotonEsperarRobotsPresionadoEventHandler implements EventHandler<Ac
     private final Grilla grilla;
     private final JuegoVista juegoVista;
 
-    public void BotonEsperarRobotsPresionadoEventHandler( Grilla grilla, JuegoVista juegoVista) {
+    public BotonEsperarRobotsPresionadoEventHandler(Grilla grilla, JuegoVista juegoVista) {
         this.grilla = grilla;
         this.juegoVista = juegoVista;
     }
+
 }

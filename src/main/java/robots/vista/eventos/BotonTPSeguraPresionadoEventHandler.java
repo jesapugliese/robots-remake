@@ -10,7 +10,7 @@ public class BotonTPSeguraPresionadoEventHandler implements EventHandler<ActionE
     private final JuegoVista juegoVista;
 
     // constructor
-    public void BotonTPSeguraPresionadoEventHandler( Grilla grilla, JuegoVista juegoVista) {
+    public BotonTPSeguraPresionadoEventHandler(Grilla grilla, JuegoVista juegoVista) {
         this.grilla = grilla;
         this.juegoVista = juegoVista;
     }

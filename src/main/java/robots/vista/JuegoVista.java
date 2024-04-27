@@ -45,12 +45,10 @@ public class JuegoVista {
 
         HBox hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
         hboxBotones.setAlignment(Pos.CENTER);
-
-        BotonEsperarRobotsPresionadoEventHandler EsperarRobots =
-
-        botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler()(grilla, juegoVista));
-        botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler()(grilla, juegoVista));
-        botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler()(grilla, juegoVista));
+        // asigno handler a los eventos
+        botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler(grilla, this));
+        botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler(grilla, this));
+        botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler(grilla, this));
 
 
         var vboxVentana = new VBox(labelInfoJuego, grilla.getGrilla(), hboxBotones);
@@ -90,6 +88,10 @@ public class JuegoVista {
 
             var hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
             hboxBotones.setAlignment(Pos.CENTER);
+            // asigno handler a los eventos
+            botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler(grilla, this);
+            botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler(grilla, this);
+            botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler(grilla, this);
 
             vista.getChildren().removeLast();
             vista.getChildren().addLast(hboxBotones);

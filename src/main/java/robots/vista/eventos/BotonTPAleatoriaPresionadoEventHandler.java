@@ -10,7 +10,7 @@ public class BotonTPAleatoriaPresionadoEventHandler implements EventHandler<Acti
     private final JuegoVista juegoVista;
 
     // constructor
-    public void BotonTPAleatoriaPresionadoEventHandler( Grilla grilla, JuegoVista juegoVista) {
+    public BotonTPAleatoriaPresionadoEventHandler( Grilla grilla, JuegoVista juegoVista) {
         this.grilla = grilla;
         this.juegoVista = juegoVista;
     }
