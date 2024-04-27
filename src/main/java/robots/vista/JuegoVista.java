@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import robots.modelo.JuegoModelo;
@@ -15,18 +17,33 @@ public class JuegoVista {
     private final JuegoModelo juegoModelo;
     private final VBox vista;
     private final Stage stage;
-
+/*** Constructor de la ventana en la que se muestra el juego ***/
     public JuegoVista(JuegoModelo juegoModelo, Stage stage) {
         this.juegoModelo = juegoModelo;
         var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
 
         var grilla = new Grilla(juegoModelo, this, stage);
 
+
+
         var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
         var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
         var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
-        var hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
+        // configuro los botones para que ocupen todo el ancho de la ventana
+        HBox.setHgrow(botonTPAleatoria, Priority.ALWAYS);
+        HBox.setHgrow(botonTPSegura, Priority.ALWAYS);
+        HBox.setHgrow(botonEsperarPorRobots, Priority.ALWAYS);
+
+        // Configuramos la expansión horizontal en los botones
+        botonTPSegura.setMaxWidth(Double.MAX_VALUE);
+        botonTPAleatoria.setMaxWidth(Double.MAX_VALUE);
+        botonEsperarPorRobots.setMaxWidth(Double.MAX_VALUE);
+
+        HBox hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
         hboxBotones.setAlignment(Pos.CENTER);
+
+
+
 
         var vboxVentana = new VBox(labelInfoJuego, grilla.getGrilla(), hboxBotones);
         vboxVentana.setAlignment(Pos.CENTER);
@@ -41,16 +58,26 @@ public class JuegoVista {
         stage.setScene(scene);
         stage.show();
     }
-
+/*** Actualiza las etiquetas de la vista***/
     public void actualizarEtiquetas() {
         if (vista != null) {
             var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
             vista.getChildren().removeFirst();
             vista.getChildren().addFirst(labelInfoJuego);
-
+            // bontones que interactuan en el juego inicializacion ?
             var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
             var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
             var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
+            // configuro los botones para que ocupen todo el ancho de la ventana
+            HBox.setHgrow(botonTPAleatoria, Priority.ALWAYS);
+            HBox.setHgrow(botonTPSegura, Priority.ALWAYS);
+            HBox.setHgrow(botonEsperarPorRobots, Priority.ALWAYS);
+
+            // Configuramos la expansión horizontal en los botones
+            botonTPSegura.setMaxWidth(Double.MAX_VALUE);
+            botonTPAleatoria.setMaxWidth(Double.MAX_VALUE);
+            botonEsperarPorRobots.setMaxWidth(Double.MAX_VALUE);
+
             var hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
             hboxBotones.setAlignment(Pos.CENTER);
 
