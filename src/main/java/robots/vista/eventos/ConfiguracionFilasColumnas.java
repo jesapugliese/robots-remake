@@ -20,13 +20,17 @@ public class ConfiguracionFilasColumnas {
     public int getTotalFilasActual() { return totalFilasActual; }
     public int getTotalColumnasActual() { return totalColumnasActual; }
 
+    /**
+     * preguntarConfFilasColumnas lanza una ventana de tipo Alert que pregunta por la configuración deseada
+     * de filas y columnas.
+     */
     public void preguntarConfFilasColumnas() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Configuración de filas y columnas");
-        alert.setHeaderText("Selección actual -> Filas: %d, Columnas: %d\n".formatted(totalFilasActual, totalColumnasActual));
+        alert.setHeaderText("Selección actual: %d filas y %d columnas\n".formatted(totalFilasActual, totalColumnasActual));
 
         var labelInfo = new Label("Escribí a continuación tu nueva selección: \n" +
-                "(filas y columnas mayores o iguales a %d y menores o iguales a %d)".formatted(Ctes.MENOR_TAM_GRILLA, Ctes.MAYOR_TAM_GRILLA));
+                "Filas y columnas mayores o iguales a %d y menores o iguales a %d.".formatted(Ctes.MENOR_TAM_GRILLA, Ctes.MAYOR_TAM_GRILLA));
 
         var labelFilas = new Label("Filas");
         TextField textFieldFilas = new TextField();

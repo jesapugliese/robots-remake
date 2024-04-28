@@ -60,7 +60,8 @@ public class ObjetoMovible {
 
     /**
      * moverse recibe dos parámetros enteros dirFil y dirCol, que corresponden
-     * a las direcciones en las que moverse.
+     * a las direcciones en las que moverse, y se mueve actualizando las posiciones segun
+     * la cantidad de pasos.
      */
     public void moverse(int dirFil, int dirCol) {
         if (dirFil < posFil) {

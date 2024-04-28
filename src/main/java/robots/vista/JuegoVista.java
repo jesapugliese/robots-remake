@@ -1,7 +1,5 @@
 package robots.vista;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,89 +10,90 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import robots.modelo.JuegoModelo;
 import robots.recursos.Ctes;
-import robots.vista.eventos.BotonEsperarRobotsPresionadoEventHandler;
-import robots.vista.eventos.BotonTPAleatoriaPresionadoEventHandler;
-import robots.vista.eventos.BotonTPSeguraPresionadoEventHandler;
+import robots.vista.eventos.ConfiguracionFilasColumnas;
+import robots.vista.eventos.TeclaPresionadaEventHandler;
 
 public class JuegoVista {
     private final JuegoModelo juegoModelo;
     private final VBox vista;
     private final Stage stage;
-/*** Constructor de la ventana en la que se muestra el juego ***/
+
     public JuegoVista(JuegoModelo juegoModelo, Stage stage) {
-        
         this.juegoModelo = juegoModelo;
+
         var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
-
         var grilla = new Grilla(juegoModelo, this, stage);
-
-
-
-        var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
-        var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
-        var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
-        // configuro los botones para que ocupen todo el ancho de la ventana
-        HBox.setHgrow(botonTPAleatoria, Priority.ALWAYS);
-        HBox.setHgrow(botonTPSegura, Priority.ALWAYS);
-        HBox.setHgrow(botonEsperarPorRobots, Priority.ALWAYS);
-
-        // Configuramos la expansión horizontal en los botones
-        botonTPSegura.setMaxWidth(Double.MAX_VALUE);
-        botonTPAleatoria.setMaxWidth(Double.MAX_VALUE);
-        botonEsperarPorRobots.setMaxWidth(Double.MAX_VALUE);
-
-        HBox hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
-        hboxBotones.setAlignment(Pos.CENTER);
-        // asigno handler a los eventos
-        botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler(grilla, this));
-        botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler(grilla, this));
-        botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler(grilla, this));
-
-
-        var vboxVentana = new VBox(labelInfoJuego, grilla.getGrilla(), hboxBotones);
+        var vboxVentana = new VBox(labelInfoJuego, grilla.getGrilla(), inicializarBotones(grilla));
         vboxVentana.setAlignment(Pos.CENTER);
+        vboxVentana.setOnKeyPressed(new TeclaPresionadaEventHandler(grilla));
+
+        var confFilCol = new ConfiguracionFilasColumnas(juegoModelo.getTotalFilas(), juegoModelo.getTotalColumnas());
+        confFilCol.preguntarConfFilasColumnas();
+        grilla.reiniciarJuego(confFilCol.getTotalFilasActual(), confFilCol.getTotalColumnasActual());
+        actualizarEtiquetas(grilla);
 
         this.vista = vboxVentana;
         this.stage = stage;
-
-
     }
 
     public void iniciar() {
-        stage.setTitle("Robots");
         var scene = new Scene(vista);
+        stage.setTitle("Robots");
         stage.setScene(scene);
         stage.show();
+        vista.requestFocus();
     }
-/*** Actualiza las etiquetas de la vista***/
+
+    /**
+     * actualizarEtiquetas actualiza las etiquetas y botones de la vista.
+     */
     public void actualizarEtiquetas(Grilla grilla) {
         if (vista != null) {
             var labelInfoJuego = new Label("Nivel: %d Puntaje: %d".formatted(juegoModelo.getNivelActual(), juegoModelo.getJugador().getPuntaje()));
             vista.getChildren().removeFirst();
             vista.getChildren().addFirst(labelInfoJuego);
-            // bontones que interactuan en el juego inicializacion ?
-            var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
-            var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + "\n(Quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
-            var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
-            // configuro los botones para que ocupen todo el ancho de la ventana
-            HBox.setHgrow(botonTPAleatoria, Priority.ALWAYS);
-            HBox.setHgrow(botonTPSegura, Priority.ALWAYS);
-            HBox.setHgrow(botonEsperarPorRobots, Priority.ALWAYS);
-
-            // Configuramos la expansión horizontal en los botones
-            botonTPSegura.setMaxWidth(Double.MAX_VALUE);
-            botonTPAleatoria.setMaxWidth(Double.MAX_VALUE);
-            botonEsperarPorRobots.setMaxWidth(Double.MAX_VALUE);
-
-            var hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
-            hboxBotones.setAlignment(Pos.CENTER);
-            // asigno handler a los eventos
-            botonTPSegura.setOnAction(new BotonTPSeguraPresionadoEventHandler(grilla, this));
-            botonTPAleatoria.setOnAction(new BotonTPAleatoriaPresionadoEventHandler(grilla, this));
-            botonEsperarPorRobots.setOnAction(new BotonEsperarRobotsPresionadoEventHandler(grilla, this));
-
             vista.getChildren().removeLast();
-            vista.getChildren().addLast(hboxBotones);
+            vista.getChildren().addLast(inicializarBotones(grilla));
         }
+    }
+
+    /**
+     * inicializarBotones inicializa los botones de la ventana.
+     */
+    private HBox inicializarBotones(Grilla grilla) {
+        var botonTPAleatoria = new Button(Ctes.TITULO_BOTON_TP_ALEATORIO);
+        var botonTPSegura = new Button(Ctes.TITULO_BOTON_TP_SEGURA + " (quedan: %d)".formatted(juegoModelo.getJugador().getUsosRestantesTPSegura()));
+        var botonEsperarPorRobots = new Button(Ctes.TITULO_BOTON_ESPERAR_ROBOTS);
+
+        // Configuramos los botones para que ocupen todo el ancho de la ventana
+        HBox.setHgrow(botonTPAleatoria, Priority.ALWAYS);
+        HBox.setHgrow(botonTPSegura, Priority.ALWAYS);
+        HBox.setHgrow(botonEsperarPorRobots, Priority.ALWAYS);
+        // Configuramos la expansión horizontal en los botones
+        botonTPSegura.setMaxWidth(Double.MAX_VALUE);
+        botonTPAleatoria.setMaxWidth(Double.MAX_VALUE);
+        botonEsperarPorRobots.setMaxWidth(Double.MAX_VALUE);
+
+        botonTPSegura.setOnAction(_ -> {
+            if (juegoModelo.getJugador().getUsosRestantesTPSegura() > 0) {
+                grilla.setEsSeleccionTPSegura(true);
+                grilla.actualizarGrilla();
+                actualizarEtiquetas(grilla);
+            }
+        });
+        botonTPAleatoria.setOnAction(_ -> {
+            grilla.getJuegoModelo().tpAleatoriaJugador();
+            grilla.actualizarGrilla();
+            actualizarEtiquetas(grilla);
+        });
+        botonEsperarPorRobots.setOnAction(_ -> {
+            grilla.getJuegoModelo().moverRobots();
+            grilla.actualizarGrilla();
+            actualizarEtiquetas(grilla);
+        });
+
+        HBox hboxBotones = new HBox(botonTPAleatoria, botonTPSegura, botonEsperarPorRobots);
+        hboxBotones.setAlignment(Pos.CENTER);
+        return hboxBotones;
     }
 }

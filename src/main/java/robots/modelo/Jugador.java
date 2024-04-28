@@ -5,15 +5,13 @@ import robots.recursos.Ctes;
 public class Jugador extends ObjetoMovible {
     private int usosRestantesTPSegura;
     private int puntaje;
-    private boolean perdedor;
-    private boolean ganador;
+    private String estado;
 
     public Jugador(int posFil, int posCol) {
         super(Ctes.PASO_SIMPLE, posFil, posCol);
         this.puntaje = 0;
         this.usosRestantesTPSegura = Ctes.CANT_INICIAL_TPSEGURA;
-        this.perdedor = false;
-        this.ganador = false;
+        this.estado = Ctes.ESTADO_JUGADOR_SIGUE;
     }
 
     public int getUsosRestantesTPSegura() {
@@ -22,27 +20,23 @@ public class Jugador extends ObjetoMovible {
     public int getPuntaje() {
         return puntaje;
     }
-    public boolean isPerdedor() { return perdedor; }
-    public boolean isGanador() { return ganador; }
+    public String getEstado() { return estado; }
 
-    public void setPerdedor(boolean perdedor) { this.perdedor = perdedor; }
-    public void setGanador(boolean ganador) { this.ganador = ganador; }
+    public void setEstado(String estado) { this.estado = estado; }
 
     public void reiniciarEstadoJugador(int posFil, int posCol) {
         super.setPosFil(posFil);
         super.setPosCol(posCol);
         this.puntaje = 0;
         this.usosRestantesTPSegura = Ctes.CANT_INICIAL_TPSEGURA;
-        this.perdedor = false;
-        this.ganador = false;
+        this.estado = Ctes.ESTADO_JUGADOR_SIGUE;
     }
 
     public void ganarNivel(int posFil, int posCol) {
         super.setPosFil(posFil);
         super.setPosCol(posCol);
         usosRestantesTPSegura++;
-        perdedor = false;
-        ganador = false;
+        this.estado = Ctes.ESTADO_JUGADOR_SIGUE;
     }
 
     /**

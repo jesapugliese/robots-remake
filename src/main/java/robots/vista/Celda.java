@@ -2,7 +2,7 @@ package robots.vista;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import robots.vista.eventos.CeldaPresionadaEventHandler;
+
 import java.util.Objects;
 
 public class Celda {
@@ -14,7 +14,7 @@ public class Celda {
         imageViewCelda.setFitHeight(20);
         imageViewCelda.setFitWidth(20);
 
-        imageViewCelda.setOnMouseClicked(new CeldaPresionadaEventHandler(posFil, posCol, grilla, juegoVista));
+        imageViewCelda.setOnMouseClicked(_ -> grilla.accionMoverJugador(posFil, posCol));
 
         this.vista = imageViewCelda;
     }

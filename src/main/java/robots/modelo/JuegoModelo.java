@@ -1,9 +1,7 @@
 package robots.modelo;
 
-import robots.Robots;
 import robots.recursos.Ctes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -11,16 +9,18 @@ import static robots.recursos.Ctes.*;
 
 public class JuegoModelo {
     private final Jugador jugador;
-    private List<Robot> robots;
     private int nivelActual;
     private int totalFilas;
     private int totalColumnas;
+    private int cantRobots;
+    private List<Robot> robots;
 
     public JuegoModelo(int totalFilas, int totalColumnas) {
         this.jugador = new Jugador(totalFilas/2, totalColumnas/2);
         this.nivelActual = Ctes.NIVEL_INICIAL;
         this.totalFilas = totalFilas;
         this.totalColumnas = totalColumnas;
+        this.cantRobots = Ctes.CANT_INICIAL_ROBOTS;
         inicializarRobots();
     }
 
@@ -42,7 +42,6 @@ public class JuegoModelo {
     private void inicializarRobots() {
         Random random = new Random();
         this.robots = new ArrayList<>();
-        int cantRobots = 5; //cambiar!!!!!!!!!!!!!!!!
 
         for (int i = 0; i < cantRobots; i++) {
             int posFil = random.nextInt(totalFilas);
@@ -76,11 +75,15 @@ public class JuegoModelo {
         return (posFil == jugador.getPosFil() && posCol == jugador.getPosCol());
     }
 
+    /**
+     * reiniciarJuego convierte los valores del juego a sus valores iniciales.
+     */
     public void reiniciarJuego(int totalFilas, int totalColumnas) {
         this.jugador.reiniciarEstadoJugador(totalFilas/2, totalColumnas/2);
         this.nivelActual = Ctes.NIVEL_INICIAL;
         this.totalFilas = totalFilas;
         this.totalColumnas = totalColumnas;
+        this.cantRobots = Ctes.CANT_INICIAL_ROBOTS;
         inicializarRobots();
     }
 
@@ -90,33 +93,25 @@ public class JuegoModelo {
     public void ganarNivel() {
         jugador.ganarNivel(totalFilas/2, totalColumnas/2);
         nivelActual++;
+        if (cantRobots < totalFilas*totalColumnas/2) {
+            cantRobots = (int) (cantRobots*AMPLIADOR_ROBOTS_POR_NIVEL);
+        }
         inicializarRobots();
     }
 
     /**
-     * tpJugador llama al jugador para que se teletransporte a una posicion aleatoria. Esta es una posicion
-     * segura (no colisiona con robots) si tpJugador recibe el parametro true. Sino solo lo teletransporta
-     * aleatoriamente.
+     * tpAleatoriaJugador llama al jugador para que se teletransporte a una posicion aleatoria
      */
-    public void tpJugador(boolean esTPSegura) {
+    public void tpAleatoriaJugador() {
         Random random = new Random();
-        int posFil = random.nextInt();
-        int posCol = random.nextInt();
-
-        if (esTPSegura) {
-            jugador.decrementarUsosRestantesTPSegura();
-            while (noEsPosValida(posFil, posCol)) {
-                posFil = random.nextInt();
-                posCol = random.nextInt();
-            }
-        }
-
+        int posFil = random.nextInt(totalFilas);
+        int posCol = random.nextInt(totalColumnas);
         jugador.actualizarPosicion(posFil, posCol);
     }
 
     /**
      * moverJugador mueve al jugador y a los robots en dirección a éste. Si el jugador colisionó con algún
-     * robot, la función devuelve false. En caso contrario devuelve true.
+     * robot, pierde. Si los robots fueron todos destruidos al moverse, el jugador gana.
      */
     public void moverJugador(int dirFil, int dirCol) {
         jugador.moverse(dirFil, dirCol);
@@ -125,7 +120,7 @@ public class JuegoModelo {
         boolean hayRobotsNoDestruidos = false;
         for (Robot robot : robots) {
             if (robot.getPosFil() == jugador.getPosFil() && robot.getPosCol() == jugador.getPosCol()) {
-                jugador.setPerdedor(true);
+                jugador.setEstado(ESTADO_JUGADOR_PERDIO);
             }
             if (!robot.isDestruido()) {
                 hayRobotsNoDestruidos = true;
@@ -133,7 +128,7 @@ public class JuegoModelo {
         }
 
         if (!hayRobotsNoDestruidos) {
-            jugador.setGanador(true);
+            jugador.setEstado(ESTADO_JUGADOR_GANO);
         }
     }
 
@@ -156,7 +151,7 @@ public class JuegoModelo {
                         if (!robotEncontrado){
                             primerRobot = robot;
                             robotEncontrado = true;
-                        } else { // encontré más robots en una misma posición
+                        } else {
                             if (!primerRobot.isDestruido()) {
                                 jugador.aumentarPuntaje(primerRobot.getPuntaje());
                                 primerRobot.destruir();
@@ -171,19 +166,6 @@ public class JuegoModelo {
 
         for (Robot robotAEliminar : robotsAEliminar) {
             robots.remove((robotAEliminar));
-        }
-    }
-
-    /**devuelve el estado en el que se encuentra el juego para ser utilizado en la ventana y elegir que ventana/alerta figura
-     * o si continuara actualizando la grilla
-     */
-    public String Estado(){
-        if (this.jugador.isPerdedor()){
-            return FIN_NIVEL;
-        } else if (this.jugador.isGanador()){
-            return SIGUIENTE_NIVEL;
-        } else {
-            return CONTINUA_EL_JUEGO;
         }
     }
 }
