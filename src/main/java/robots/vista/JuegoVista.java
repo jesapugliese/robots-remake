@@ -88,7 +88,7 @@ public class JuegoVista {
             actualizarEtiquetas(grilla);
         });
         botonEsperarPorRobots.setOnAction(_ -> {
-            grilla.getJuegoModelo().moverRobots();
+            grilla.accionMoverJugador(juegoModelo.getJugador().getPosFil(), juegoModelo.getJugador().getPosCol());
             grilla.actualizarGrilla();
             actualizarEtiquetas(grilla);
         });
