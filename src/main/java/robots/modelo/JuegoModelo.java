@@ -107,6 +107,11 @@ public class JuegoModelo {
         int posFil = random.nextInt(totalFilas);
         int posCol = random.nextInt(totalColumnas);
         jugador.actualizarPosicion(posFil, posCol);
+        for (Robot robot : robots) {
+            if (posFil == robot.getPosFil() && posCol == robot.getPosCol()) {
+                jugador.setEstado(ESTADO_JUGADOR_PERDIO);
+            }
+        }
     }
 
     /**

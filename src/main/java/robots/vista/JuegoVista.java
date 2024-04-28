@@ -83,6 +83,7 @@ public class JuegoVista {
         });
         botonTPAleatoria.setOnAction(_ -> {
             grilla.getJuegoModelo().tpAleatoriaJugador();
+            grilla.accionMoverJugador(juegoModelo.getJugador().getPosFil(), juegoModelo.getJugador().getPosCol());
             grilla.actualizarGrilla();
             actualizarEtiquetas(grilla);
         });
